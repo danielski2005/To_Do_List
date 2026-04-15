@@ -11,12 +11,12 @@ typedef struct{
 
 
 int addTask();
-
 void printTasks();
-void menu();
+
+int menu();
+void menuOption(int option);
 
 void cleanBuffer();
-void jump();
 
 
 Task taskList[100];
@@ -29,8 +29,8 @@ int main(void){
 
     while(1){
 
-        system("cls"); 
-        menu();
+        int option = menu();
+        menuOption(option);
     }
 
     return 0;
@@ -106,19 +106,24 @@ void printTasks(){
 */
 
 
-void menu(){
+int menu(){
 
+    system("cls");
     printf("Welcome to your personal To Do List: Press button (1-4)\n");
     printf("\n1. Add new Task\n");
     printf("2. Print out Tasks\n");
 
     int button;
     scanf("%d", &button);
-
     cleanBuffer();
 
+    return button;
+}
+
+
+void menuOption(int option){
     system("cls");
-    switch(button){
+    switch(option){
         case 1:
             while(addTask() == 1){printf("add task failed");}
             break;
@@ -129,7 +134,6 @@ void menu(){
 
     return;
 }
-
 
 /* cleanBuffer()
 *
