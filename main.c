@@ -12,6 +12,7 @@ typedef struct{
 
 int addTask();
 void printTasks();
+void allTasks();
 
 int menu();
 void menuOption(int option);
@@ -78,10 +79,31 @@ int addTask(){
 
 void printTasks(){
 
-    printf("These are all your tasks (press 1 to exit)\n");
+    printf("These are all your tasks (press 0 to exit)\n");
 
-    for(int i = 0; i < taskAmount; i++){
-        printf("\n%s: ", taskList[i].description);
+    allTasks();
+
+    int exit = 1;
+    while(exit != 0){
+        scanf("%d", &exit);
+    }
+    return;
+}
+
+
+
+/* allTasks()
+*
+* prints out all active tasks and wether they are done or not 
+*
+*/
+
+
+void allTasks(){
+
+     for(int i = 0; i < taskAmount; i++){
+        
+        printf("%d: %s: ", i + 1, taskList[i].description);
 
         if(taskList[i].isDone == false){
             printf("Not Done\n");
@@ -90,10 +112,36 @@ void printTasks(){
         }
     }
 
-    int exit = 0;
-    while(exit != 1){
-        scanf("%d", &exit);
+    return;
+}
+
+
+
+/* markDone()
+*
+* creates a frame in which the user can toggle wether tasks are done or not   
+*
+*/
+
+
+void markDone(){
+
+    int toggleInt = 1;
+    printf("press button for which tasks you would like to toggle (press 0 to exit)\n");
+
+    while(toggleInt != 0){
+        allTasks();
+        scanf("%d", &toggleInt); 
+
+        if(toggleInt > 0 && toggleInt <= taskAmount){
+            int index = toggleInt -1;
+
+                taskList[index].isDone = !taskList[index].isDone;
+        }
+
+        cleanBuffer;
     }
+
     return;
 }
 
@@ -112,6 +160,7 @@ int menu(){
     printf("Welcome to your personal To Do List: Press button (1-4)\n");
     printf("\n1. Add new Task\n");
     printf("2. Print out Tasks\n");
+    printf("3. Toggle Tasks\n");
 
     int button;
     scanf("%d", &button);
@@ -130,6 +179,9 @@ void menuOption(int option){
         case 2:
             printTasks();
             break;
+        case 3: 
+            markDone();
+            break;
     }
 
     return;
@@ -137,8 +189,7 @@ void menuOption(int option){
 
 /* cleanBuffer()
 *
-*      
-*   
+*   Helper function   
 *
 */
 
