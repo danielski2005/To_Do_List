@@ -108,7 +108,7 @@ void allTasks(){
         if(taskList[i].isDone == false){
             printf("Not Done\n");
         }else{
-            printf("Done!!");
+            printf("Done\n");
         }
     }
 
@@ -146,6 +146,40 @@ void markDone(){
 }
 
 
+/* DeleteTask()
+*
+*   lets the user delete tasks within the tasklist 
+*
+*/
+
+
+
+void deleteTask(){
+    
+    int deleteInt = 1;
+    printf("press button for which task you would like to delete (press 0 to exit)\n");
+
+    while(deleteInt != 0){
+        allTasks();
+        scanf("%d", &deleteInt);
+
+        if(deleteInt > 0 && deleteInt <= taskAmount){
+            int index = deleteInt - 1;
+
+            for(int i = index; i < taskAmount + 1; i++){
+                taskList[i] = taskList[i + 1];
+            }
+
+            taskAmount--;
+        }
+
+        cleanBuffer;
+    }
+
+    return;
+}
+
+
 /* menu()
 *
 *   creates the mainframe of the to do list. Asks for a number which redirects
@@ -161,6 +195,7 @@ int menu(){
     printf("\n1. Add new Task\n");
     printf("2. Print out Tasks\n");
     printf("3. Toggle Tasks\n");
+    printf("4. Delete Tasks\n");
 
     int button;
     scanf("%d", &button);
@@ -168,6 +203,13 @@ int menu(){
 
     return button;
 }
+
+
+/* menuOption()
+*
+*   uses a switch to decide which function to call upon 
+*
+*/
 
 
 void menuOption(int option){
@@ -181,6 +223,9 @@ void menuOption(int option){
             break;
         case 3: 
             markDone();
+            break;
+        case 4:
+            deleteTask();
             break;
     }
 
